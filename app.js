@@ -1,6 +1,8 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const app = express()
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: true }))
 
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/todo-list', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -27,6 +29,17 @@ app.get('/', (req, res) => {
     .lean()
     .then(todos => res.render('index', { todos }))
     .catch(error => console.log('error'))
+})
+
+app.get('/todos/new', (req, res) => {
+  res.render('new')
+})
+
+app.post('/todos', (req, res) => {
+  const name = req.body.name
+  return Todo.create({ name })
+    .then(() => { res.redirect('/') })
+    .catch(error => console.log(error))
 })
 
 app.listen(port, () => {
