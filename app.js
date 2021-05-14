@@ -1,15 +1,18 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
-const app = express()
 const bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded({ extended: true }))
-
+const methodOverride = require('method-override')
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/todo-list', { useNewUrlParser: true, useUnifiedTopology: true })
-const db = mongoose.connection
 const Todo = require('./models/todo.js')
 
 const port = 3000
+const app = express()
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
+
+mongoose.connect('mongodb://localhost/todo-list', { useNewUrlParser: true, useUnifiedTopology: true })
+const db = mongoose.connection
 
 // check mongodb
 db.on('error', () => {
@@ -61,7 +64,7 @@ app.get('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/todos/:id/edit', (req, res) => {
+app.put('/todos/:id', (req, res) => {
   const id = req.params.id
   const { name, isDone } = req.body
   return Todo.findById(id)
@@ -74,7 +77,7 @@ app.post('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/todos/:id/delete', (req, res) => {
+app.delete('/todos/:id', (req, res) => {
   const id = req.params.id
   return Todo.findById(id)
     .then(todo => todo.remove())
