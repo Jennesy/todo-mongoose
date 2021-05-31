@@ -6,6 +6,7 @@ const session = require('express-session')
 const usePassport = require('./config/passport')
 require('./config/mongoose')
 const routes = require('./routes')
+const flash = require('connect-flash')
 
 const port = process.env.PORT || 3000
 const app = express()
@@ -18,9 +19,12 @@ app.use(session({
   saveUninitialized: true
 }))
 usePassport(app)
+app.use(flash())
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.success_msg = req.flash('success_msg')  // 設定 success_msg 訊息
+  res.locals.warning_msg = req.flash('warning_msg')  // 設定 warning_msg 訊息
   next()
 })
 
