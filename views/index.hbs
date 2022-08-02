@@ -1,15 +1,15 @@
 <a href="/todos/new" class="btn btn-primary mb-3">Create</a>
 <ul class="list-group">
   {{#each todos}}
-  <li class="list-group-item">
-    <div class="row">
-      <div class="col-auto mr-auto">
-        <input style="vertical-align: middle;" type="checkbox" name="isDone" {{#if this.isDone }} checked {{/if}}
-          disabled>
-        <h4 style="display: inline; vertical-align: middle;">
+  <li class="list-group-item bg-light rounded-pill mb-4">
+    <div class="d-flex align-items-center my-2">
+      <form action="/todos/{{ this._id }}?_method=PUT" method="POST" class="flex-grow-1 flex-shrink-1 my-auto d-flex align-items-center" style="min-width:0">
+        <input class="flex-grow-0 flex-shrink-0 mr-3" style="vertical-align: middle;" type="checkbox" name="isDone" {{#if this.isDone }} checked {{/if}}
+          onclick="this.parentNode.submit()">
+        <h5 class="font-weight-light flex-grow-1 flex-shrink-1 text-truncate" style="margin: 0;line-height:1.7rem">
           {{ this.name }}
-        </h4>
-      </div>
+        </h5>
+      </form>
       <div class="col-auto">
         <a class="btn btn-secondary" href="./todos/{{ this._id }}">detail</a>
         <a class="btn btn-success" href="./todos/{{ this._id }}/edit">edit</a>

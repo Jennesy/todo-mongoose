@@ -38,17 +38,24 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-  const { name, isDone } = req.body
-  const userId = req.user._id
-  const _id = req.params.id
-  return Todo.findOne({ _id, userId })
-    .then(todo => {
-      todo.name = name
-      todo.isDone = isDone === 'on'
-      return todo.save()
-    })
-    .then(() => res.redirect(`/todos/${_id}`))
-    .catch(error => console.log(error))
+	const { name, isDone } = req.body
+	const userId = req.user._id
+	const _id = req.params.id
+	return Todo.findOne({ _id, userId })
+		.then((todo) => {
+			todo.name = name || todo.name
+			todo.isDone = isDone === 'on'
+			return todo.save()
+		})
+		.then(() => {
+			// from home page
+			if (req.headers.referer === req.headers.origin + '/') {
+				return res.redirect(`/`)
+			}
+			// from edit page
+			return res.redirect(`/todos/${_id}`)
+		})
+		.catch((error) => console.log(error))
 })
 
 router.delete('/:id', (req, res) => {
