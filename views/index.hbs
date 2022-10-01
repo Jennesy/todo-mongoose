@@ -1,5 +1,12 @@
-<a href="/todos/new" class="btn btn-primary mb-3">Create</a>
-<ul class="list-group">
+<a href="/todos/new" class="btn btn-circle-primary rounded-circle position-fixed fixed-bottom mb-3" id="btn-create">
+  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" 
+    viewBox="0 0 24 24">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+</a>
+<ul class="list-group mx-auto mb-5" style='max-width: 700px' id="list-group">
   {{#each todos}}
   <li class="list-group-item bg-light rounded-pill mb-4">
     <div class="d-flex align-items-center my-2">
@@ -10,11 +17,35 @@
           {{ this.name }}
         </h5>
       </form>
-      <div class="col-auto">
-        <a class="btn btn-secondary" href="./todos/{{ this._id }}">detail</a>
-        <a class="btn btn-success" href="./todos/{{ this._id }}/edit">edit</a>
+      <div class="flex-grow-0 flex-shrink-0">
+        <a href="./todos/{{ this._id }}" class="tool-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="tool-icon tool-icon__detail" viewBox="0 0 24 24" >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <circle cx="10" cy="10" r="7" />
+            <line x1="7" y1="10" x2="13" y2="10" />
+            <line x1="10" y1="7" x2="10" y2="13" />
+            <line x1="21" y1="21" x2="15" y2="15" />
+          </svg>
+        </a>
+        <a href="./todos/{{ this._id }}/edit" class="tool-btn ml-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="tool-icon tool-icon__edit" viewBox="0 0 24 24" >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
+            <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
+            <line x1="16" y1="5" x2="19" y2="8" />
+          </svg>
+        </a>
         <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-          <button class="btn btn-danger" type="submit">delete</button>
+          <button type="submit" class="tool-btn ml-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="tool-icon tool-icon__delete" viewBox="0 0 24 24" >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <line x1="4" y1="7" x2="20" y2="7" />
+              <line x1="10" y1="11" x2="10" y2="17" />
+              <line x1="14" y1="11" x2="14" y2="17" />
+              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+            </svg>
+          </button>
         </form>
       </div>
     </div>

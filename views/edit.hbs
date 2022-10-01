@@ -1,13 +1,11 @@
 <form action="/todos/{{ todo._id }}?_method=PUT" method="POST" style="display: inline;">
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <div class="input-group-text">
-        <input type="checkbox" name="isDone" {{#if todo.isDone }} checked {{/if}}>
-      </div>
-    </div>
-    <input class="form-control" type="text" placeholder="name" name="name" value="{{ todo.name }}">
-    <div class="input-group-append">
-      <button class="btn btn-success" type="submit">save</button>
+  <div class="input-group d-flex flex-row align-items-start flex-nowrap">
+    <input class="flex-grow-0 flex-shrink-0 mr-3" style="margin-top: 0.775rem;" type="checkbox" name="isDone" {{#if todo.isDone }} checked {{/if}}>
+    <label class="input-sizer flex-grow-1 flex-shrink-1" data-value="{{ todo.name }}">
+      <textarea class="form-control font-weight-light" type="text" placeholder="name" name="name" oninput="this.parentNode.dataset.value = this.value" rows="1" autofocus>{{ todo.name }}</textarea>
+    </label>
+    <div class="flex-grow-0 flex-shrink-0 ml-3" style="margin-top: 0.275rem;" >
+      <button class="btn" type="submit">save</button>
     </div>
   </div>
 </form>

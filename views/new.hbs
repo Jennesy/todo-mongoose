@@ -1,8 +1,20 @@
-<form action="/todos" method="POST" style="display: inline;">
-  <div class="input-group">
-    <input class="form-control" type="text" placeholder="name" name="name">
-    <div class="input-group-append">
-      <button class="btn btn-success" type="submit">create</button>
-    </div>
-  </div>
+<form action='/todos' method='POST' style='display: inline;'>
+	<div class='input-group d-flex flex-row align-items-center flex-nowrap'>
+		<label class='input-sizer flex-grow-1 flex-shrink-1 mr-3'>
+			<textarea
+				class='form-control font-weight-light'
+				type='text'
+				placeholder='new todo'
+				name='name'
+				oninput='this.parentNode.dataset.value = this.value'
+				rows='1'
+				autofocus
+			>{{todo.name}}</textarea>
+		</label>
+		<div class='flex-grow-0 flex-shrink-0 d-flex align-items-center my-auto'>
+			<button type='submit' class='btn'>
+				save
+			</button>
+		</div>
+	</div>
 </form>
